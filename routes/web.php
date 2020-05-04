@@ -23,6 +23,8 @@ Route::get('/orderpayment/{reference_id}', 'OrderController@getOrderReferenceId'
 
 Route::get('/order', 'OrderController@viewOrder');
 
+Route::get('/userorders', 'OrderController@userOrders');
+
 Route::post('/createorder', 'OrderController@createOrder');
 
 Route::get('/', 'ProductsController@viewProducts');

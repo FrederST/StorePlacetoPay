@@ -4,9 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\OrderValidatorRequest;
 use App\Models\Order;
+use App\Models\Product;
+use App\User;
 use Dnetix\Redirection\PlacetoPay;
+use DataTables;
 
 class OrderController extends Controller
 {
@@ -26,41 +30,43 @@ class OrderController extends Controller
         ]);
     }
         
-    public function viewOrder(OrderValidatorRequest $request){
-        $order = $request;
+    public function viewOrder(Request $request){
+        $product = Product::find($request->product_id);
+        $user = User::find($request->user()->id);
         
-        return view('store.order',compact('order'));
+        return view('store.order',compact('user','product'));
     }
 
     public function createOrder(Request $request){
 
+        $productSQL = Product::find($request->product_id);
+        $userSQL = User::find($request->user()->id);
         $orderSQL = new Order();
-        $orderSQL->customer_name = $request->customer_name;
-        $orderSQL->customer_surname = $request->customer_surname;
-        $orderSQL->customer_email = $request->customer_email;
-        $orderSQL->customer_mobile = $request->customer_mobile;
+        $orderSQL->user_id = $request->user()->id;
+        $orderSQL->product_id = $request->product_id;
         $orderSQL->status = 1;
         $orderSQL->requestId = 1;
+        $orderSQL->processUrl = 'waiting';
         $orderSQL->save();
 
         $reference = $orderSQL->id;
         $requestptp = [
             "buyer" => [
-                "name" => $orderSQL->customer_name,
-                "surname" => $orderSQL->customer_surname,
-                "email" => $orderSQL->customer_email,
-                "mobile" => $orderSQL->customer_mobile,
+                "name" => $userSQL->name,
+                "surname" => $userSQL->surname,
+                "email" => $userSQL->email,
+                "mobile" => $userSQL->mobile,
             ], 
             'payment' => [
                 'reference' => $reference,
-                'description' => $request->product_name,
+                'description' => $productSQL->name,
                 'amount' => [
                     'currency' => 'COP',
-                    'total' => $request->product_value,
+                    'total' => $productSQL->value,
                 ],
             ],
-            'expiration' => date('c', strtotime('+2 days')),
-            'returnUrl' => 'http://127.0.0.1:8000/orderpayment/'. $reference,
+            'expiration' => date('c', strtotime('+1 days')),
+            'returnUrl' => url("orderpayment/{$reference}"),
             'ipAddress' => '127.0.0.1',
             'userAgent' => $request->user_agent,
         ];
@@ -69,6 +75,7 @@ class OrderController extends Controller
 
         if ($response->isSuccessful()) {
             $orderSQL->requestId = $response->requestId;
+            $orderSQL->processUrl = $response->processUrl;
             $orderSQL->save();
             return new RedirectResponse($response->processUrl());
         } else {
@@ -82,17 +89,42 @@ class OrderController extends Controller
         $response = $this->placetopay->query($orderSQL->requestId);
 
         if ($response->isSuccessful()) {
-            
+
             if ($response->status()->isApproved()) {
                 // The payment has been approved
                 $orderSQL->status = 2;
                 $orderSQL->save();
-                return view('store.orderpayment',compact('orderSQL'));
+                $productSQL = Product::find($orderSQL->product_id);
+                $userSQL = User::find($orderSQL->user_id);
+                return view('store.orderpayment',compact('orderSQL','productSQL','userSQL'));
+            }else if($response->status()->status() == 'PENDING'){
+                // The payment pending approval
+                $orderSQL->status = 4;
+                $orderSQL->save();
+                $productSQL = Product::find($orderSQL->product_id);
+                $userSQL = User::find($orderSQL->user_id);
+                return view('store.orderpayment',compact('orderSQL','productSQL','userSQL'));
+            }else if($response->status()->status() == 'REJECTED'){
+                $orderSQL->status = 3;
+                $orderSQL->save();
+                $productSQL = Product::find($orderSQL->product_id);
+                $userSQL = User::find($orderSQL->user_id);
+                return view('store.orderpayment',compact('orderSQL','productSQL','userSQL'));
+            }else{
+                $productSQL = Product::find($orderSQL->product_id);
+                $userSQL = User::find($orderSQL->user_id);
+                return view('store.orderpayment',compact('orderSQL','productSQL','userSQL'));
             }
         } else {
             // There was some error with the connection so check the message
             dd($response->status()->message());
         }
+    }
+
+    public function userOrders(Request $request){
+        $ordersSQL = Order::where('user_id',$request->user()->id);
+        
+        return Datatables::of($ordersSQL)->toJson();
     }
 
 }

@@ -18,6 +18,12 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    <!-- JQuery and DataTables -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.css"/>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.js" defer></script>
+
 </head>
 <body>
     <div id="app">
@@ -76,5 +82,48 @@
             @yield('content')
         </main>
     </div>
+
+    <script type="text/javascript">
+    
+    $(document).ready(function () {
+        // alert('Escucha');
+        oTable = $('#orders').DataTable({
+
+            language: {
+                "decimal": "",
+                "emptyTable": "No hay información",
+                "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
+                "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
+                "infoFiltered": "(Filtrado de _MAX_ total entradas)",
+                "infoPostFix": "",
+                "thousands": ",",
+                "lengthMenu": "Mostrar _MENU_ Entradas",
+                "loadingRecords": "Cargando...",
+                "processing": "Procesando...",
+                "search": "Buscar:",
+                "zeroRecords": "Sin resultados encontrados",
+                "paginate": {
+                    "first": "Primero",
+                    "last": "Ultimo",
+                    "next": "Siguiente",
+                    "previous": "Anterior"
+                }
+            },
+
+            "processing": true,
+            "serverSide": true,
+            "ajax": "{{ url('/userorders') }}",
+            "columns": [
+                { data: 'id' },
+                { data: 'name' },
+                { data: 'value' },
+                { data: 'status' },
+            ]
+
+        })
+    });
+
+    </script>
+
 </body>
 </html>
