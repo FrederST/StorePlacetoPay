@@ -24,6 +24,9 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.css"/>
     <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.js" defer></script>
 
+    <!-- DataTables orders -->
+    <script src="{{ asset('js/table.js') }}" defer></script>
+
 </head>
 <body>
     <div id="app">
@@ -83,7 +86,8 @@
         </main>
     </div>
 
-    <script type="text/javascript">
+    
+ {{--    <script type="text/javascript">
     
     $(document).ready(function () {
         // alert('Escucha');
@@ -123,7 +127,7 @@
         })
     });
 
-    </script>
+    </script> --}}
 
 </body>
 </html>

@@ -122,9 +122,59 @@ class OrderController extends Controller
     }
 
     public function userOrders(Request $request){
-        $ordersSQL = Order::where('user_id',$request->user()->id);
+        $ordersSQL = Order::where('user_id',$request->user()->id)->with('product');
         
         return Datatables::of($ordersSQL)->toJson();
+    }
+
+    public function allOrders(){
+        $ordersSQL = Order::with('product');
+        
+        return Datatables::of($ordersSQL)->toJson();
+    }
+
+    public function viewAllOrders(){
+        return view('store.allorders');
+    }
+
+    public function retryPayment(Request $request){
+
+        $productSQL = Product::find($request->product_id);
+        $orderSQL = Order::find($request->order_id);
+        $userSQL = User::find($request->user()->id);
+        
+        $reference = $orderSQL->id;
+        $requestptp = [
+            "buyer" => [
+                "name" => $userSQL->name,
+                "surname" => $userSQL->surname,
+                "email" => $userSQL->email,
+                "mobile" => $userSQL->mobile,
+            ], 
+            'payment' => [
+                'reference' => $reference,
+                'description' => $productSQL->name,
+                'amount' => [
+                    'currency' => 'COP',
+                    'total' => $productSQL->value,
+                ],
+            ],
+            'expiration' => date('c', strtotime('+1 days')),
+            'returnUrl' => url("orderpayment/{$reference}"),
+            'ipAddress' => '127.0.0.1',
+            'userAgent' => $request->user_agent,
+        ];
+
+        $response = $this->placetopay->request($requestptp);
+
+        if ($response->isSuccessful()) {
+            $orderSQL->requestId = $response->requestId;
+            $orderSQL->processUrl = $response->processUrl;
+            $orderSQL->save();
+            return new RedirectResponse($response->processUrl());
+        } else {
+            $response->status()->message();
+        }
     }
 
 }

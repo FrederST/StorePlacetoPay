@@ -5,7 +5,9 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Tus Ordenes</div>
+                <div class="card-header"><h3>Tus Ordenes</h3></div>
+
+                <a class="btn btn-primary" href="{{ url('/allorders') }}">Para Ver Todas Las Ordenes (De La Tienda) Click Aquí</a>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -16,7 +18,7 @@
 
                     {{-- You are logged in! --}}
 
-                    <table class="table" id="orders" class="table table-hover table-condensed">
+                    <table class="table" id="ordersHome" class="table table-hover table-condensed">
                         <thead>
                         
                         <tr>
