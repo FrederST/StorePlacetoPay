@@ -17,17 +17,19 @@ use Illuminate\Support\Facades\Route;
     return view('store.products');
 }); */
 
-Route::post('/createorder', 'OrderController@createOrder');
+Route::group(['middleware' => ['auth']], function () {
+    Route::get('/order', 'OrderController@viewOrder');
+    Route::post('/createorder', 'OrderController@createOrder');
+    Route::get('/orderpayment/{reference_id}', 'OrderController@getOrderReferenceId');
+    Route::get('/userorders', 'OrderController@userOrders');
+    Route::get('/retrypayment', 'OrderController@retryPayment');
+});
 
-Route::get('/orderpayment/{reference_id}', 'OrderController@getOrderReferenceId');
+Route::get('/alldtorders', 'OrderController@AllOrders');
 
-Route::get('/order', 'OrderController@viewOrder');
-
-Route::post('/createorder', 'OrderController@createOrder');
+Route::get('/allorders', 'OrderController@viewAllOrders');
 
 Route::get('/', 'ProductsController@viewProducts');
-
-Route::get('/productos', 'ProductsController@viewProducts');
 
 Route::get('/product/{id_product}', 'ProductsController@viewProduct')->name('product');
 

@@ -7,73 +7,110 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
 </p>
 
-## About Laravel
+# Descripción.
+Esta es una tienda basica la cual integra el sitemas de pagos de PlacetoPay, Web Checkout, basicamente se busca cumplir con los siguiente requerimientos.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+La tienda debe contener las siguientes vistas
+1. Una donde el cliente proporcione los datos necesarios para generar una nueva orden.
+2. Una donde se presente un resumen de la orden y se permita proceder a pagar.
+3. Una donde el cliente pueda ver el estado de su orden, si está pagada muestre el mensaje de que está pagada, de lo contrario, un botón que permita reintentarlo debe estar presente.
+4. Una donde se pueda ver el listado de todas las órdenes que tiene la tienda.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+# Instalación.
 
-## Learning Laravel
+1. Para un apropiado funcionamiento y tener problemas durante la instalacion primero debemos habilitar en el SOAP en nuesto archivo __'php.ini'__ ubicado en __'C:\xampp\php'__.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+2. Renombramos el archivo __.env.example__ pro __.env__, en este configuraremos nuestra base de datos.
+![env-imagen](https://i.ibb.co/8dQXLVL/Screenshot-1.png)
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+3. Tambien podemos Modificar nuestro LOGIN y TRANKEY en el archivo __env.__ (Estos datos nos permitiran autenticarnos en el servicio de PlacetoPay, ya vienen incluido los de prueba asi que lo recomendable es no modificarlos.
+![env-imagen](https://i.ibb.co/D8QbLXh/Screenshot-2.png)
 
-## Laravel Sponsors
+4. Ejecutamos el comando __composer update__, para actualizar las dependencias.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+5. Ejecutamos el comando __php artisan key:generate__, para poder ejecutar nuestra aplicación.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[British Software Development](https://www.britishsoftware.co)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- [UserInsights](https://userinsights.com)
-- [Fragrantica](https://www.fragrantica.com)
-- [SOFTonSOFA](https://softonsofa.com/)
-- [User10](https://user10.com)
-- [Soumettre.fr](https://soumettre.fr/)
-- [CodeBrisk](https://codebrisk.com)
-- [1Forge](https://1forge.com)
-- [TECPRESSO](https://tecpresso.co.jp/)
-- [Runtime Converter](http://runtimeconverter.com/)
-- [WebL'Agence](https://weblagence.com/)
-- [Invoice Ninja](https://www.invoiceninja.com)
-- [iMi digital](https://www.imi-digital.de/)
-- [Earthlink](https://www.earthlink.ro/)
-- [Steadfast Collective](https://steadfastcollective.com/)
-- [We Are The Robots Inc.](https://watr.mx/)
-- [Understand.io](https://www.understand.io/)
-- [Abdel Elrafa](https://abdelelrafa.com)
-- [Hyper Host](https://hyper.host)
-- [Appoly](https://www.appoly.co.uk)
-- [OP.GG](https://op.gg)
-- [云软科技](http://www.yunruan.ltd/)
+## Base Datos.
 
-## Contributing
+Debemos agregar las tablas y datos necesarios para el funcionamiento de nuestra aplicación aquí usaremos __migrate y seeder__ de laravel :
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+1. Ejcutamos en comando __php artisan migrate__, este nos creara las tablas necesarias.
 
-## Code of Conduct
+2. Ejecutamos el comando __php artisan db:seed__, para agregar los datos necesarios en nuestras tablas.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+# Ejecucion.
 
-## Security Vulnerabilities
+Ya instalada nuestra aplicaión la ejecutamos con el comando __php artisan serve__.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Si todo se encuatr bien nuestra aplicación deberia ejecutarse en la ruta mostrada en consola.
+ ![artisan serve](https://i.ibb.co/3h2Q5d8/Screenshot-3.png)
 
-## License
+ # Vistas.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+ 1. Una donde el cliente proporcione los datos necesarios para generar una nueva orden.
+ 
+    A esta podemos acceder en la parte superior de nuestra aplicación.
+     ![register 1](https://i.ibb.co/4MFWcnm/Screenshot-4.png)
+     ![register 2](https://i.ibb.co/YL9YNz1/Screenshot-5.png)
+    Si deseas puedes registrarte con tus datos para probar el sistema, de lo contrario puedes usar las siguientes credenciales:
+    - Email: rimubiddik-5999@yopmail.com
+    - Password: laravel
+
+2. Una donde se presente un resumen de la orden y se permita proceder a pagar.
+
+    Para poder acceder a esta vista debemos proceder a la compra de un producto y estar logueados en el sistema.
+    ![orders 1](https://i.ibb.co/7GW1VfK/Screenshot-6.pnghttps://parzibyte.me/blog/wp-content/uploads/2019/03/Env-de-Laravel-para-MySQL.png)
+    ![orders 2](https://i.ibb.co/TKPCTSY/Screenshot-7.png)
+    ![orders 3](https://i.ibb.co/jgHGf7d/Screenshot-8.png)
+    ![orders 4](https://i.ibb.co/w7567yH/Screenshot-9.png)
+
+3. Una donde el cliente pueda ver el estado de su orden, si está pagada muestre el mensaje de que está pagada, de lo contrario, un botón que permita reintentarlo debe estar presente.
+
+    Para acceder a esta vista tambien se debe estar logueado en el sistema, podemos obtener la información en 2 apartados de la aplicaión.
+
+    1. En el __home__ de nuestra aplicación.
+
+    ![UserOrders 1](https://i.ibb.co/ygZkKBy/Screenshot-12.png)
+    ![UserOrders 2](https://i.ibb.co/YNsfY7K/Screenshot-13.png)
+    
+
+    2. Al finalizar la compra en la plataforma de PlacetoPay.
+    
+    ![UserOrders 3](https://i.ibb.co/syrjm1w/Screenshot-10.png)
+    ![UserOrders 4](https://i.ibb.co/JdTYqTg/Screenshot-11.png)
+
+
+4. Una donde se pueda ver el listado de todas las órdenes que tiene la tienda.
+
+    Para acceder a esta no es necesario estar logueado en el sistema podemos acceder desde la página principal en la esquina superior izquierda.
+    ![allOrders1](https://i.ibb.co/rwb3mWj/Screenshot-14.png)
+    
+    Tambien desde nuestro __home__, en la aprte superior de nuestra tabla.
+    ![allOrders2](https://i.ibb.co/dg6QcD8/Screenshot-16.png)
+    ![allOrders2](https://i.ibb.co/syhMXd8/Screenshot-15.png)
+
+# Barrido.
+
+El barrido en la aplicacion se realiza debido a que podemos obtener pagos pendientes, pues el credito tarda en ser aprovado, este funciona de la siguiente manera:
+
+1. Obtenemos todas las ordenes en estado pendiente del día de hoy.
+2. Evaluamos que la horden tenga más de 7 minutos de antiguedad.
+3. Si esta tiene más de 7 minutos evaluamos con PlacetoPay si el cridito ya ha sido aprobado, de ser asi secambia el estado (status).
+
+Este codigo se ejecuta cada 15 minutos en nustra aplicación.
+
+__NOTA: Debido a que Cron (administrador regular de procesos en segundo plano) no funciana en Windows si deseas probarlo te veras en la obligación de usar el programador de tareas de Windows, puedes seguir los siguientes tutoriales__
+
+__-[Video](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=6&cad=rja&uact=8&ved=2ahUKEwiWtsD7j57pAhUxmeAKHcMTAHQQwqsBMAV6BAgKEAQ&url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DM2Ss0oUPBFQ&usg=AOvVaw2AsPFdh5TUGR1gACRjC6Z_)__
+
+__-[Artículo](https://quantizd.com/how-to-use-laravel-task-scheduler-on-windows-10/)__
+
+__Tambien puedes dirigirte al archivo "Kernel.php" ubicado en "app/Console" y la función "schedule" modificarla de la siguiente forma:__
+
+```php
+//$schedule->command('sweep:orders')->everyFifteenMinutes();
+$schedule->command('sweep:orders')->everyMinute();
+```
+
+__Despues ejecutamos el comando "php artisan schedule:run", si tenemos ordenes pendiente con mas de 7 minutos de antiguedad y fueron aprovadas se actualizarán.__
