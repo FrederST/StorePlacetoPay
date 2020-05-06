@@ -19,6 +19,7 @@ class OrderController extends Controller
 
     public function __construct() 
     {
+        // Configuration required for that instance.
         $this->placetopay = new PlacetoPay([
             'login' => env('LOGIN', '6dd490faf9cb87a9862245da41170ff2'),
             'tranKey' => env('TRANKEY', '024h1IlD'),
@@ -29,7 +30,8 @@ class OrderController extends Controller
             ]
         ]);
     }
-        
+     
+    // Return summary of order receives product_id and user_id of user logged
     public function viewOrder(Request $request){
         $product = Product::find($request->product_id);
         $user = User::find($request->user()->id);
@@ -37,6 +39,7 @@ class OrderController extends Controller
         return view('store.order',compact('user','product'));
     }
 
+    // Create order and redirect of PlaetoPay for payment receives product_id and user_id of user logged
     public function createOrder(Request $request){
 
         $productSQL = Product::find($request->product_id);
@@ -83,6 +86,7 @@ class OrderController extends Controller
         }
     }
 
+    //Verify in placetopay status of order and modific and to show status of payment
     public function getOrderReferenceId($reference){
 
         $orderSQL = Order::find($reference);
@@ -121,22 +125,26 @@ class OrderController extends Controller
         }
     }
 
+    // Return orders of specific user in JSON
     public function userOrders(Request $request){
         $ordersSQL = Order::where('user_id',$request->user()->id)->with('product');
         
         return Datatables::of($ordersSQL)->toJson();
     }
 
+    // Return all orders of the store in JSON
     public function allOrders(){
         $ordersSQL = Order::with('product');
         
         return Datatables::of($ordersSQL)->toJson();
     }
 
+    // Show all orders of the store
     public function viewAllOrders(){
         return view('store.allorders');
     }
 
+    //Retry payment of specifict order
     public function retryPayment(Request $request){
 
         $productSQL = Product::find($request->product_id);
