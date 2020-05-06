@@ -71,7 +71,8 @@ class OrderController extends Controller
             'expiration' => date('c', strtotime('+1 days')),
             'returnUrl' => url("orderpayment/{$reference}"),
             'ipAddress' => '127.0.0.1',
-            'userAgent' => $request->user_agent,
+            //'userAgent' => $request->user_agent,
+            'userAgent' => 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36',
         ];
 
         $response = $this->placetopay->request($requestptp);
@@ -82,7 +83,7 @@ class OrderController extends Controller
             $orderSQL->save();
             return new RedirectResponse($response->processUrl());
         } else {
-            $response->status()->message();
+            \Log::info($response->status()->message());   
         }
     }
 
@@ -109,12 +110,14 @@ class OrderController extends Controller
                 $userSQL = User::find($orderSQL->user_id);
                 return view('store.orderpayment',compact('orderSQL','productSQL','userSQL'));
             }else if($response->status()->status() == 'REJECTED'){
+                // The payment has been rejected
                 $orderSQL->status = 3;
                 $orderSQL->save();
                 $productSQL = Product::find($orderSQL->product_id);
                 $userSQL = User::find($orderSQL->user_id);
                 return view('store.orderpayment',compact('orderSQL','productSQL','userSQL'));
             }else{
+                // The payment pending for payment
                 $productSQL = Product::find($orderSQL->product_id);
                 $userSQL = User::find($orderSQL->user_id);
                 return view('store.orderpayment',compact('orderSQL','productSQL','userSQL'));
@@ -134,8 +137,7 @@ class OrderController extends Controller
 
     // Return all orders of the store in JSON
     public function allOrders(){
-        $ordersSQL = Order::with('product');
-        
+        $ordersSQL = Order::with('product');  
         return Datatables::of($ordersSQL)->toJson();
     }
 
@@ -144,11 +146,11 @@ class OrderController extends Controller
         return view('store.allorders');
     }
 
-    //Retry payment of specifict order
+    //Retry payment of specifict order receives order_id and user_id of user logged
     public function retryPayment(Request $request){
 
-        $productSQL = Product::find($request->product_id);
         $orderSQL = Order::find($request->order_id);
+        $productSQL = Product::find($orderSQL->product_id);
         $userSQL = User::find($request->user()->id);
         
         $reference = $orderSQL->id;
@@ -170,7 +172,8 @@ class OrderController extends Controller
             'expiration' => date('c', strtotime('+1 days')),
             'returnUrl' => url("orderpayment/{$reference}"),
             'ipAddress' => '127.0.0.1',
-            'userAgent' => $request->user_agent,
+            //'userAgent' => $request->user_agent,
+            'userAgent' => 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36',
         ];
 
         $response = $this->placetopay->request($requestptp);
