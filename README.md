@@ -19,7 +19,12 @@ La tienda debe contener las siguientes vistas
 
 # Instalación.
 
-1. Para un apropiado funcionamiento y tener problemas durante la instalacion primero debemos habilitar en el SOAP en nuesto archivo __'php.ini'__ ubicado en __'C:\xampp\php'__.
+1. Para un apropiado funcionamiento y no tener problemas durante la instalacion primero debemos habilitar la extensión SOAP en nuesto archivo __'php.ini'__ ubicado en __'C:\xampp\php'__.
+
+![env-imagen](https://i.ibb.co/v1cz5nD/Screenshot-19.png)
+![env-imagen](https://i.ibb.co/7b61rnY/Screenshot-20.png)
+
+__NOTA: Recuerda reiniciar el servidor si lo tienes activo.__
 
 2. Renombramos el archivo __.env.example__ pro __.env__, en este configuraremos nuestra base de datos.
 ![env-imagen](https://i.ibb.co/8dQXLVL/Screenshot-1.png)
