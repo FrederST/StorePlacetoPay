@@ -25,6 +25,7 @@
             <div class="col-sm">
                 <img class="img-product" src="{{$product->url_image}}" alt="{{$product->name}}">
                 <br><br>
+                <a class="btn btn-secondary btn-lg btn-block" href="/product/{{$product->id}}">Regresar</a>
                 <button type="submit" class="btn btn-primary btn-lg btn-block">Continuar</button>
             </div>
         </div>

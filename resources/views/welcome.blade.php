@@ -27,7 +27,7 @@
 
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <h1><a class="navbar-brand links" href="{{ url('/') }}">{{ config('app.name', 'Tienda') }}</a></h1>
-            <a class="navbar-brand links" href="{{ url('/allorders') }}">Todas Las Ordenes</a>
+            <h1><a class="navbar-brand links" href="{{ url('/allorders') }}">Todas Las Ordenes</a></h1>
             
             <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
                 <ul class="navbar-nav ml-auto">

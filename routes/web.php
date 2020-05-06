@@ -31,8 +31,6 @@ Route::get('/allorders', 'OrderController@viewAllOrders');
 
 Route::get('/', 'ProductsController@viewProducts');
 
-Route::get('/productos', 'ProductsController@viewProducts');
-
 Route::get('/product/{id_product}', 'ProductsController@viewProduct')->name('product');
 
 Auth::routes();

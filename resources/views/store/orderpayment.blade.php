@@ -22,14 +22,15 @@
                   @csrf
                   <input type="hidden" value="{{$orderSQL->product_id}}" name="product_id" id="product_id" readonly>
                   <input type="hidden" value="{{$orderSQL->id}}" name="order_id" id="order_id" readonly>
-                  <button type="submit" class="btn btn-primary">Reintentar Compra</button>
+                  <button type="submit" class="btn btn-danger tn-lg btn-block">Reintentar Compra</button>
                 </form>
             @elseif ($orderSQL->status == 4)
-                <h3 class="text-white bg-info">El Pago Se Encuentra Pendiente O No Ha Sido Aprovado</h3>
-                <a class="btn btn-primary" href="{{$orderSQL->processUrl}}">Click Para Más Información</a>
+                <h3 class="text-white bg-info">El Pago Se Encuentra Pendiente</h3>
+                <a class="btn btn-primary tn-lg btn-block" href="{{$orderSQL->processUrl}}">Click Para Más Información</a>
             @else 
                 <h3>Ocurrio Un Error</h3>
             @endif
+            <a class="btn btn-secondary btn-lg btn-block" href="/">Ir a Tienda</a>
         </div>
     </div>
 

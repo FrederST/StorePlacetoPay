@@ -15,11 +15,12 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->string('customer_name', 80);
-			$table->string('customer_email', 120);
-			$table->string('customer_mobile', 40);
-			$table->enum('status', array('CREATED','PAYED','REJECTED'));
-            $table->timestamps();
+			$table->foreignId('user_id')->unsigned()->index('user_orders');
+			$table->foreignId('product_id')->index('pruduct_order');
+			$table->enum('status', array('CREATED','PAYED','REJECTED','PENDING'));
+			$table->integer('requestId');
+			$table->text('processUrl');
+			$table->timestamps();
         });
     }
 

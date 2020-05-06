@@ -50,6 +50,9 @@ $(document).ready(function () {
                 }
                 }
             },
+            {data: null, "render": function ( data, type, row ) {
+                return '<a class="btn btn-primary" href="/orderpayment/'+row.id+'">Más información</a>';
+            }}
         ]
 
     })

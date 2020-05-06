@@ -20,8 +20,8 @@ class OrderController extends Controller
     public function __construct() 
     {
         $this->placetopay = new PlacetoPay([
-            'login' => '6dd490faf9cb87a9862245da41170ff2',
-            'tranKey' => '024h1IlD',
+            'login' => env('LOGIN', '6dd490faf9cb87a9862245da41170ff2'),
+            'tranKey' => env('TRANKEY', '024h1IlD'),
             'url' => 'https://test.placetopay.com/redirection/',
             'rest' => [
                 'timeout' => 45, // (optional) 15 by default

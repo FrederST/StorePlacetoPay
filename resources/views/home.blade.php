@@ -26,6 +26,7 @@
                             <th>Producto</th>
                             <th>Valor</th>
                             <th>Estado</th>
+                            <th>&nbsp;</th>
                         </tr>
                 
                         </thead>

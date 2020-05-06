@@ -15,6 +15,7 @@
 
     
     <br>
+    <a class="btn btn-secondary" href="/">Regresar</a>
     <h1>{{$product->name}}</h1>
     <div class="row">
       <div class="col-sm border">
