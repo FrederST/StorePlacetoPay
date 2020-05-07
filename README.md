@@ -9,7 +9,7 @@
 
 ### Para tu comodidad este proyecto se encuantra funcionando en el siguiente enlace.
 
-__-[Store-PlacetoPay](placetopay-store.herokuapp.com/)__
+__-[Store-PlacetoPay](http://placetopay-store.herokuapp.com/)__
 
 # Descripción.
 Esta es una tienda basica la cual integra el sitemas de pagos de PlacetoPay, Web Checkout, basicamente se busca cumplir con los siguiente requerimientos.
