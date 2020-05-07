@@ -139,3 +139,5 @@ Condiciones en la base de datos, para no tener dificultades en las pruebas.
 * Tener minimo 1 orden rechazada status(3).
 
 __NOTA: Si no se cumplen algunas condiciones en nuestra base de datos algunas pruebas podrian fallar.__
+
+__Release/1.0__
