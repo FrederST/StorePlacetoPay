@@ -4,7 +4,7 @@ $(document).ready(function () {
 
         language: {
             "decimal": "",
-            "emptyTable": "No hay información",
+            "emptyTable": "No hay pedidos",
             "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
             "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
             "infoFiltered": "(Filtrado de _MAX_ total entradas)",
@@ -61,7 +61,7 @@ $(document).ready(function () {
 
         language: {
             "decimal": "",
-            "emptyTable": "No hay información",
+            "emptyTable": "No hay pedidos",
             "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
             "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
             "infoFiltered": "(Filtrado de _MAX_ total entradas)",

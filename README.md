@@ -26,15 +26,18 @@ La tienda debe contener las siguientes vistas
 
 __NOTA: Recuerda reiniciar el servidor si lo tienes activo.__
 
-2. Renombramos el archivo __.env.example__ pro __.env__, en este configuraremos nuestra base de datos.
+2. Creamos una nueva base de datos donde se ejecutara nuestro proyecto.
+![env-imagen](https://i.ibb.co/L6Cp7Ch/Screenshot-22.png)
+
+3. Renombramos el archivo __.env.example__ pro __.env__, en este configuraremos nuestra base de datos.
 ![env-imagen](https://i.ibb.co/8dQXLVL/Screenshot-1.png)
 
-3. Tambien podemos Modificar nuestro LOGIN y TRANKEY en el archivo __env.__ (Estos datos nos permitiran autenticarnos en el servicio de PlacetoPay, ya vienen incluido los de prueba asi que lo recomendable es no modificarlos.
+4. Tambien podemos Modificar nuestro LOGIN y TRANKEY en el archivo __env.__ (Estos datos nos permitiran autenticarnos en el servicio de PlacetoPay, ya vienen incluido los de prueba asi que lo recomendable es no modificarlos.
 ![env-imagen](https://i.ibb.co/D8QbLXh/Screenshot-2.png)
 
-4. Ejecutamos el comando __composer update__, para actualizar las dependencias.
+5. Ejecutamos el comando __composer update__, para actualizar las dependencias.
 
-5. Ejecutamos el comando __php artisan key:generate__, para poder ejecutar nuestra aplicación.
+6. Ejecutamos el comando __php artisan key:generate__, para poder ejecutar nuestra aplicación.
 
 ## Base Datos.
 
@@ -56,7 +59,7 @@ Si todo se encuatr bien nuestra aplicación deberia ejecutarse en la ruta mostra
  1. Una donde el cliente proporcione los datos necesarios para generar una nueva orden.
  
     A esta podemos acceder en la parte superior de nuestra aplicación.
-     ![register 1](https://i.ibb.co/4MFWcnm/Screenshot-4.png)
+     ![register 1](https://i.ibb.co/fMMSrNt/Screenshot-23.png)
      ![register 2](https://i.ibb.co/YL9YNz1/Screenshot-5.png)
     Si deseas puedes registrarte con tus datos para probar el sistema, de lo contrario puedes usar las siguientes credenciales:
     - Email: rimubiddik-5999@yopmail.com
@@ -65,10 +68,9 @@ Si todo se encuatr bien nuestra aplicación deberia ejecutarse en la ruta mostra
 2. Una donde se presente un resumen de la orden y se permita proceder a pagar.
 
     Para poder acceder a esta vista debemos proceder a la compra de un producto y estar logueados en el sistema.
-    ![orders 1](https://i.ibb.co/7GW1VfK/Screenshot-6.pnghttps://parzibyte.me/blog/wp-content/uploads/2019/03/Env-de-Laravel-para-MySQL.png)
-    ![orders 2](https://i.ibb.co/TKPCTSY/Screenshot-7.png)
+    ![orders 1](https://i.ibb.co/JW19WFF/Screenshot-24.png)
     ![orders 3](https://i.ibb.co/jgHGf7d/Screenshot-8.png)
-    ![orders 4](https://i.ibb.co/w7567yH/Screenshot-9.png)
+    ![orders 4](https://i.ibb.co/mJsLrYG/Screenshot-25.png)
 
 3. Una donde el cliente pueda ver el estado de su orden, si está pagada muestre el mensaje de que está pagada, de lo contrario, un botón que permita reintentarlo debe estar presente.
 
@@ -76,7 +78,7 @@ Si todo se encuatr bien nuestra aplicación deberia ejecutarse en la ruta mostra
 
     1. En el __home__ de nuestra aplicación.
 
-    ![UserOrders 1](https://i.ibb.co/ygZkKBy/Screenshot-12.png)
+    ![UserOrders 1](https://i.ibb.co/YLXz3Yj/Screenshot-26.png)
     ![UserOrders 2](https://i.ibb.co/YNsfY7K/Screenshot-13.png)
     
 
@@ -89,7 +91,7 @@ Si todo se encuatr bien nuestra aplicación deberia ejecutarse en la ruta mostra
 4. Una donde se pueda ver el listado de todas las órdenes que tiene la tienda.
 
     Para acceder a esta no es necesario estar logueado en el sistema podemos acceder desde la página principal en la esquina superior izquierda.
-    ![allOrders1](https://i.ibb.co/rwb3mWj/Screenshot-14.png)
+    ![allOrders1](https://i.ibb.co/n8kWShG/Screenshot-27.png)
     
     Tambien desde nuestro __home__, en la aprte superior de nuestra tabla.
     ![allOrders2](https://i.ibb.co/dg6QcD8/Screenshot-16.png)
@@ -119,3 +121,21 @@ $schedule->command('sweep:orders')->everyMinute();
 ```
 
 __Despues ejecutamos el comando "php artisan schedule:run", si tenemos ordenes pendiente con mas de 7 minutos de antiguedad y fueron aprovadas se actualizarán.__
+
+# Pruebas.
+
+Para las pruebas que se encuentran en __"test/Feature/OrderTest.php"__, realizadas con PHPUnit integrado con laravel.
+
+1. Debemos configurar el archivo __"phpunit.xml"__ que se encuentra en la carpeta principal del proyecto, en este editaremos los parametros __DB_DATABASE__ y __DB_CONNECTION__ __por los mismos de nuestro archivo ".env"__.
+
+![allOrders2](https://i.ibb.co/JcWchHv/Screenshot-21.png)
+
+2. ya configurado el archivo __"phpunit.xml"__ podemos ejecutar las pruebas desde nuestra terminal con el comando __vendor/bin/phpunit__ lo que se busca con estas pruebas es verificar el funcionamiento de los metodos mas importantes de nuestro Controlador de ordenes.
+
+Condiciones en la base de datos, para no tener dificultades en las pruebas.
+
+* Tener minimo 1 usuario.
+* Tener minimos 1 orden en cualquier estado.
+* Tener minimo 1 orden rechazada status(3).
+
+__NOTA: Si no se cumplen algunas condiciones en nuestra base de datos algunas pruebas podrian fallar.__

@@ -13,7 +13,7 @@ class UserSeeder extends Seeder
     public function run()
     {
         DB::table('users')->insert([
-            ['name'=> 'Freder', 'surname'=> 'Hernandez', 'email' => 'rimubiddik-5999@yopmail.com', 'mobile' => '310440664', 'password'=> bcrypt('laravel'), 'remember_token' => Str::random(10)],
+            ['name'=> 'Usuario', 'surname'=> 'Prueba', 'email' => 'rimubiddik-5999@yopmail.com', 'mobile' => '310440664', 'password'=> bcrypt('laravel'), 'remember_token' => Str::random(10)],
             ['name'=> 'Andres', 'surname'=> 'Mosquera', 'email' => 'fredersteven399@hotmail.com', 'mobile' => '310440664', 'password'=> bcrypt('laravel'), 'remember_token' => Str::random(10)],
         ]);
     }
