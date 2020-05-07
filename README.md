@@ -7,6 +7,10 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
 </p>
 
+### Para tu comodidad este proyecto se encuantra funcionando en el siguiente enlace.
+
+__-[Store-PlacetoPay](https://placetopay-store.herokuapp.com/)__
+
 # Descripción.
 Esta es una tienda basica la cual integra el sitemas de pagos de PlacetoPay, Web Checkout, basicamente se busca cumplir con los siguiente requerimientos.
 
